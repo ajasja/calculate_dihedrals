@@ -203,18 +203,28 @@ proc print_all_sidechain_dihedrals {indices frame_num output_file} {
 }
 
 puts "calculate dihedrals 1.0"
-puts "proc print_sidechain_dihedrals {chain residues {mol top} {output_file_name \"stdout\"} {first_frame 0} {last_frame -1} {stride 1}} {"
+puts "proc print_sidechain_dihedrals {chain residues {mol top} {output_file_name \"stdout\"} {first_frame 0} {last_frame -1} {stride 1} {print_progress 0}}"
 
-proc print_sidechain_dihedrals {chain residues {mol top} {output_file_name "stdout"} {first_frame 0} {last_frame -1} {stride 1}} {
+proc print_sidechain_dihedrals {chain residues {mol top} {output_file_name "stdout"} {first_frame 0} {last_frame -1} {stride 1} {print_progress 0}} {
   
   #get residue list
   set residues [atomselect $mol "chain $chain and $residues and name CA"]
   set resinfos [join [$residues get {resid resname}]]
   #puts $resinfos
+  
+  if {($print_progress>0) && ($output_file_name != "stdout")} then {
+       set counter [expr [llength $resinfos]/2]
+       puts "Getting indices for $counter residues."  
+     }
   #get the atom indices of the dehidral (torsion) angles
   set indices [join [get_all_sidechain_indices $resinfos $chain $mol]]
   
   #puts $indices
+  if {($print_progress>0) && ($output_file_name != "stdout")} then {
+       set counter [expr [llength $resinfos]/2]
+       puts "Done."  
+     }
+
 
   
   #set output
@@ -233,8 +243,15 @@ proc print_sidechain_dihedrals {chain residues {mol top} {output_file_name "stdo
   if {$last_frame == -1} then {
     set last_frame [expr [molinfo $mol get numframes] -1]}
   
+  set counter 0
   #iterate along through all frames
   for {set frame $first_frame} {$frame <= $last_frame} {incr frame $stride} {
+     incr counter
+     if {($print_progress>0) && ($counter>=$print_progress) && ($output_file_name != "stdout")} then {
+       puts "Working on frame $frame."
+       set counter 0
+     }
+      
      molinfo $mol set frame $frame
      print_all_sidechain_dihedrals $indices $frame $output_file
   }
