@@ -4,14 +4,14 @@
 
 ##example use:
  
-
-	#load the module (must be in the correct directory)
-	source calculate_dihedrals.tcl
-	#load a structure
-	mol addfile {1IAZ} type {webpdb} 
-	#Print the first ten backbone and side-chain dihedral angles
-	print_sidechain_dihedrals A "residue 1 to 10" top 
-
+```tcl
+#load the module (must be in the correct directory)
+source calculate_dihedrals.tcl
+#load a structure
+mol addfile {1IAZ} type {webpdb} 
+#Print the first ten backbone and side-chain dihedral angles
+print_sidechain_dihedrals A "residue 1 to 10" top 
+```
 
 
 ##VMD  --- start of VMD description block
