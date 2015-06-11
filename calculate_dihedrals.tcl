@@ -153,7 +153,7 @@ proc get_sidechain_inidces {resid resname chain mol} {
 }
 
 proc get_all_sidechain_indices {resinfos chain mol} {
-  
+  set result {}
   foreach {resid resname} $resinfos {
      #puts  "$resid $resname $chain $mol"
      lappend result [get_sidechain_inidces $resid $resname $chain $mol] 
