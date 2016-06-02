@@ -37,7 +37,7 @@
 # <li> calcualte_dihedrals.tcl -- calcualtes the dihedral angles
 # <li> dihedral_angles_atom_names.tcl -- procedures to get atom indices of dihedral angles
 #Authors: 
-# Ajasja Ljubetiè (ajasja.ljubetic@gmail.com)
+# Ajasja LjubetiÃ¨ (ajasja.ljubetic@gmail.com)
 #\VMD  --- end of block
 
 
@@ -136,6 +136,7 @@ proc get_sidechain_inidces {resid resname chain mol} {
     ARG {lappend result [get_ARG_sidechain_indicies $resid $resname $chain $mol]}
     
     HIS {lappend result [get_HIS_sidechain_indicies $resid $resname $chain $mol]}
+    HSE {lappend result [get_HIS_sidechain_indicies $resid $resname $chain $mol]}
     HSP {lappend result [get_HIS_sidechain_indicies $resid $resname $chain $mol]}
     HSD {lappend result [get_HIS_sidechain_indicies $resid $resname $chain $mol]}
     
